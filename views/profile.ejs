@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>  Ben</title>
+    <link rel="stylesheet" href="stylesheets/style.css" >
+    <script src="javascripts/jquery.js"></script>
+    <script src="javascripts/popper.js"></script>
+    <script src="javascripts/boot.js" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $(window).load(function(){
+            $(".hameid-loader-overlay").fadeOut(1000);
+        });
+    </script>
+<style>
+    .hameid-loader-overlay {
+        width: 100%;
+        height: 100%;
+        background: url('images/preloader_7.gif') center no-repeat #FFF;
+        z-index: 99999;
+        position: fixed;
+    }
+
+</style>
+
+</head>
+
+<body style="    background-color: #f8fbfd;">
+
+
+<div class="hameid-loader-overlay"></div>
+
+<nav class="navbar navbar-expand-lg navbar-light ">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/spreads">Spreads</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/blog">Blog</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/company">Company</a>
+            </li>
+            <% if(log) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="/profile">Profile</a>
+            </li>
+            <% } %>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <% if(!log) { %>
+            <a class="some btn btn-outline-success mr-sm-2" style="background-color: #133d5f;color: white" href="/login">Log-in</a>
+            <% } %>
+            <% if(log) { %>
+            <a class="some btn btn-outline-success mr-sm-2" style="background-color: #133d5f;color: white" href="/logout">logout</a>
+            <% } %>
+
+        </form>
+    </div>
+</nav>
+<div class="container">
+    <div class="text-center">
+    <img src="https://semantic-ui.com/images/avatar2/large/matthew.png" style="zoom:0.2" class="img-thumbnail">
+    </div>
+<form>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Name</label>
+        <input type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp" value="<%= change.name%>" placeholder="Your Name">
+
+    </div>
+
+    <div class="row" style="margin: 2%">
+        <div class="col">
+            <label for="Company">Company</label>
+            <input type="text" class="form-control" id="company" value="<%= change.company%>" placeholder="Company">
+        </div>
+        <div class="col">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" id="phone" value="<%= change.phone%>" placeholder="Phone number">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="about">Example textarea</label>
+        <textarea id="about" class="form-control"  rows="3" value=""><%= change.about%></textarea>
+    </div>
+
+</form>
+    <h4>Qualifications</h4>
+    <div class="alert alert-danger qualmes" role="alert" style="display: none">
+        Click save to save your changes
+    </div>
+    <form class="form-inline">
+        <label class="sr-only" for="qual">Qualification</label>
+        <input type="text"  class="form-control mb-2 mr-sm-2 mb-sm-0" id="qual" placeholder="Enter Qualifications">
+
+
+    <div>
+        <button onclick="addqual(event)" class="btn btn-primary">Add</button>
+
+    </div>
+
+    </form>
+   <div class="row" style="margin: 4%;">
+       <div class="col-md-4 offset-md-4">
+           <ul class="list-group quallist" style="">
+               <% for(i=0;i<change.qualifications.length;i++){ %>
+               <li class="list-group-item" id="<%= change.qualifications[i]+"qual" %>"><%= change.qualifications[i] %> <button  class="btn float-right btn-primary" onclick="delqual(<%= "'"+change.qualifications[i] + "'"%>)" >Delete</button></li>
+               <% } %>
+           </ul>
+       </div>
+   </div>
+    <h4>Publications</h4>
+    <div class="alert alert-danger pubmes" role="alert" style="display: none">
+        Click save to save your changes
+    </div>
+    <form class="form-inline">
+        <label class="sr-only" for="inlineFormInputName2">Name</label>
+        <select class="custom-select" id="pubcategory" style="margin-right: 1%">
+            <option selected>Open this select Category</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Ethical Hacking">Ethical Hacking</option>
+            <option value="Data Analytics">Data Analytics</option>
+            <option value="Computer Networks">Computer Networks</option>
+        </select>
+        <label class="sr-only" for="inlineFormInputName2">Type</label>
+        <select class="custom-select" id="pubtype" style="margin-right: 1%">
+            <option selected>Open this select Type</option>
+            <option value="book">Book</option>
+            <option value="course">Course</option>
+
+        </select>
+        <label class="sr-only" for="inlineFormInputName2">Links</label>
+        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="publink" placeholder="Enter Links">
+        <label class="sr-only" for="inlineFormInputName2">Content</label>
+        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="pubcon" placeholder="Enter Content">
+
+
+        <div>
+            <button onclick="addpub(event)" class="btn btn-primary">Add</button>
+
+        </div>
+
+    </form>
+    <div class="row" style="margin: 4%;">
+        <div class="col-md-4 offset-md-4">
+            <ul class="list-group publist" style="">
+                <% for(i=0;i<change.publications.length;i++){ %>
+                <li class="list-group-item" id="<%= change.publications[i].course.replace(" ",'')+"pub" %>"><%= change.publications[i].course %> <button  class="btn float-right btn-primary" onclick="delpub(<%= "'"+JSON.stringify(change.publications[i]) + "'"%>)" >Delete</button></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+    <button onclick="save(event)" class="btn btn-primary" style=>Save</button>
+</div>
+<script>
+    function save(e) {
+        e.preventDefault()
+
+       var name =  $('#exampleInputName').val();
+        var company = $('#company').val();
+        var phone = $('#phone').val();
+        var about = $('#about').val();
+        $.ajax({
+            url : '/service',
+            type : "post",
+            data : {
+                name : name,
+                company :company,
+                phone :phone,
+                about : about
+            },
+            success :function (data) {
+                console.log(data)
+            }
+        })
+
+    }
+    function addqual(e) {
+        e.preventDefault()
+
+       if($('#qual').val())
+       {
+          val = $('#qual').val()
+         $.ajax({
+               url : "/service",
+               type : "post",
+               data : {
+                   usage : "qualadd",
+                   add : val
+
+               },
+               success: function (data) {
+                   if(data == "success")
+                   {
+                       $('.qualmes').css({
+                           'display' : 'inherit'
+                       })
+                       setTimeout(function () {
+                           $('.qualmes').css({
+                               'display' : 'none'
+                           })
+                       },10000)
+                       $('.quallist').append('<li class="list-group-item" id="' + val + '">' + val + '<button  class="btn float-right btn-primary" onclick="delqual('+val+')" >Delete</button></li>')
+                   }
+               }
+           })
+       }
+    }
+    function addpub(e) {
+        e.preventDefault()
+
+        if($('#pubcategory').val() && $('#pubtype').val() && $('#publink').val() && $('#pubcon').val())
+        {
+            var val = {
+                course : $('#pubcategory').val(),
+                type : $('#pubtype').val(),
+                link : $('#publink').val(),
+                content : $('#pubcon').val()
+            }
+            $.ajax({
+                url : "/service",
+                type : "post",
+                data : {
+                    usage : "pubadd",
+                    add : JSON.stringify(val)
+
+                },
+                success: function (data) {
+                    if(data == "success")
+                    {
+                        $('.pubmes').css({
+                            'display' : 'inherit'
+                        })
+                        setTimeout(function () {
+                            $('.pubmes').css({
+                                'display' : 'none'
+                            })
+                        },10000)
+                        $('.publist').append('<li class="list-group-item" id="' + val.course.replace(" ",'') + '">' + val.course + '<button  class="btn float-right btn-primary" onclick="delqual('+"'"+ JSON.stringify(val)+ "'" +')" >Delete</button></li>')
+                    }
+                }
+            })
+        }
+    }
+
+   function delqual(s) {
+
+       $.ajax({
+           url : "/service",
+           type : "post",
+           data : {
+               usage : "qualdel",
+               del : s
+
+           },
+           success: function (data) {
+               if(data == "success")
+               {
+                   $('.qualmes').css({
+                       'display' : 'inherit'
+                   })
+                   setTimeout(function () {
+                       $('.qualmes').css({
+                           'display' : 'none'
+                       })
+                   },10000)
+                   $("#"+s + "qual").remove();
+               }
+           }
+       })
+   }
+    function delpub(d) {
+        s = JSON.parse(d).course
+
+
+
+        $.ajax({
+            url : "/service",
+            type : "post",
+            data : {
+                usage : "pubdel",
+                del : d
+
+            },
+            success: function (data) {
+                if(data == "success")
+                {
+                    $('.pubmes').css({
+                        'display' : 'inherit'
+                    })
+                    setTimeout(function () {
+                        $('.pubmes').css({
+                            'display' : 'none'
+                        })
+                    },10000)
+                    $("#"+s.replace(" ",'') + "pub").remove();
+                }
+            }
+        })
+    }
+</script>
+</body>
+
+</html>

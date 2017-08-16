@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>  Ben</title>
+    <link rel="stylesheet" href="stylesheets/style.css" >
+    <script src="javascripts/jquery.js"></script>
+    <script src="javascripts/popper.js"></script>
+    <script src="javascripts/boot.js" ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body style="    background-color: #f8fbfd;">
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light ">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/spreads">Spreads</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/blog">Blog</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/company">Company</a>
+            </li>
+            <% if(log) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="/profile">Profile</a>
+            </li>
+            <% } %>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <% if(!log) { %>
+            <a class="some btn btn-outline-success mr-sm-2" style="background-color: #133d5f;color: white" href="/login">Log-in</a>
+            <% } %>
+            <% if(log) { %>
+            <a class="some btn btn-outline-success mr-sm-2" style="background-color: #133d5f;color: white" href="/logout">logout</a>
+            <% } %>
+
+        </form>
+    </div>
+</nav>
+<div class="row " style="margin-top:2% ">
+
+    <div class="col-md-12" >
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" >
+
+        <div class="carousel-inner" role="listbox" >
+            <div class="carousel-item active text-center" >
+                 <img src="images/company/1.PNG">
+            </div>
+
+
+            <div class="carousel-item text-center">
+                <img src="images/company/2.PNG">
+            </div>
+            <div class="carousel-item text-center">
+                <img src="images/company/3.PNG">
+            </div>
+            <div class="carousel-item">
+                <pre>
+                        No individual can be good at everything.
+                    Everyone needs people around them who have complimentary sets of skills.
+                                          - Naveen Jain
+
+                </pre>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<hr class="text-center" style="width: 75%">
+<div class="text-center">
+        <img  src="images/company/abt.jpg" width="">
+    </div>
+
+<div style="margin: 3%;text-align: center" >
+
+        <h2 class="ui header">Explore Skillful spreads here</h2>
+        <p>Spreads is a education promoting website that helps by creating a collective interface for various books and online course videos.</p>
+
+</div>
+
+<div class="row text-center" style="margin: 5%">
+    <div class="col-sm" style="border-right: 1px dotted #000;">
+        <img src="images/company/auth.jpg" style="width: 10%">
+        <h5>200+ Authors of various Fields</h5>
+        <p>Find your author and subject and get into touch with them through our Spreads..</p>
+    </div>
+    <div class="col-sm">
+        <img src="images/company/book.png" style="width: 10%">
+        <h5>500+ Spreads Books</h5>
+        <p>Explore books of your interest and many Online courses by various Authors.</p>
+    </div>
+
+</div>
+
+
+
+
+<div class="container text-center" style="background: #b3b0b4;padding:3% ">
+    <form class="form-inline">
+    <label class="mr-sm-2" for="inlineFormCustomSelectPref">Spreads provides a lot of free books. Want to get one? Sign up and we'll let you know..</label>
+
+    <input type="text" class="form-control" id="email" name="email address" placeholder="E-mail" style="margin-right: 2%;">
+    <button class="btn btn-primary btn-md" onclick="pushs(event)" style="background-color: #133d5f;border-color: #133d5f">Sign-Up</button>
+    </form>
+</div>
+
+
+<footer class="bd-footer text-muted">
+    <div class="container" style="text-align: right;color: #133d5f">
+        <i class="fa fa-facebook fa-lg" aria-hidden="true" style="margin: 2%;"></i><i style="margin: 2%;" class="fa fa-linkedin fa-lg" aria-hidden="true"></i><i style="margin: 2%;" class="fa fa-google-plus fa-lg" aria-hidden="true"></i>
+
+    </div>
+</footer>
+
+</div>
+<script>
+    function pushs(e) {
+        e.preventDefault()
+        email = $('#email').val()
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(re.test(email))
+        {
+           $.ajax({
+               url : '/service',
+               type : 'post',
+               data : {
+                   usage : "news",
+                   email :email
+               },
+               success :function (data) {
+                   console.log(data)
+               }
+           })
+        }
+    }
+</script>
+</body >
+</html>
